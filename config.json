@@ -1,0 +1,14 @@
+{
+  "siteName": "log",
+  "tagline": "A log of what I'm building.",
+  "description": "Luke's development log: a record of everything I'm building.",
+  "author": "Luke",
+  "homeUrl": "https://l8a.dev",
+  "baseUrl": "https://log.l8a.dev",
+  "startDate": "2026-06-17",
+  "building": "Project zero (this site)",
+  "links": {
+    "x": "https://x.com/GenevaLuke",
+    "github": "https://github.com/LukeGeneva"
+  }
+}
