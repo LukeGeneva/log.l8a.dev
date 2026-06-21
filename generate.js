@@ -20,6 +20,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = __dirname;
 const DATA_DIR = path.join(ROOT, 'data');
@@ -214,6 +215,8 @@ const buildingNotice = config.building
   : '';
 
 const css = fs.readFileSync(path.join(SRC_DIR, 'style.css'), 'utf8');
+const cssHash = crypto.createHash('sha256').update(css).digest('hex').slice(0, 8);
+const cssFilename = `style.${cssHash}.css`;
 
 const socialLinks = [];
 if (config.links && config.links.github) socialLinks.push(`<a href="${escapeHtml(config.links.github)}">Source</a>`);
@@ -234,9 +237,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0a1410">
 <link rel="alternate" type="application/rss+xml" title="${escapeHtml(config.siteName || 'log')}" href="feed.xml">
-<style>
-${css}
-</style>
+<link rel="stylesheet" href="${cssFilename}">
 </head>
 <body>
 
@@ -324,8 +325,16 @@ const rss = `<?xml version="1.0" encoding="UTF-8"?>
 // ---------- write ----------
 
 fs.mkdirSync(DIST_DIR, { recursive: true });
+
+// Remove stale fingerprinted CSS files before writing the new one
+fs.readdirSync(DIST_DIR)
+  .filter((f) => /^style\.[a-f0-9]+\.css$/.test(f) && f !== cssFilename)
+  .forEach((f) => fs.unlinkSync(path.join(DIST_DIR, f)));
+
+fs.writeFileSync(path.join(DIST_DIR, cssFilename), css, 'utf8');
 fs.writeFileSync(path.join(DIST_DIR, 'index.html'), html, 'utf8');
 fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), rss, 'utf8');
 
 console.log(`Built dist/index.html (${displayApps.length} apps, ${logEntries.length} log entries)`);
+console.log(`Built dist/${cssFilename}`);
 console.log(`Built dist/feed.xml`);
