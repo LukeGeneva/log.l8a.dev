@@ -247,9 +247,9 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${escapeHtml(config.author || 'log')} / ${escapeHtml(config.siteName || 'log')}</title>
+<title>${escapeHtml(config.siteName)}</title>
 <meta name="description" content="${escapeHtml(config.description || config.tagline || '')}">
-<meta property="og:title" content="${escapeHtml(config.author || '')} / ${escapeHtml(config.siteName || 'log')}">
+<meta property="og:title" content="${escapeHtml(config.siteName)}">
 <meta property="og:description" content="${escapeHtml(config.description || config.tagline || '')}">
 <meta property="og:type" content="website">
 <meta property="og:image" content="${escapeHtml((config.baseUrl || '').replace(/\/$/, ''))}/img/banner.jpg">
@@ -351,7 +351,7 @@ const rssItems = logEntries
 const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>${escapeXml(config.siteName || 'Outbound')}</title>
+    <title>${escapeXml(config.siteName)}</title>
     <link>${escapeXml(config.baseUrl || '')}</link>
     <description>${escapeXml(config.description || config.tagline || '')}</description>
     ${rssItems}
