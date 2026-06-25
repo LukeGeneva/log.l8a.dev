@@ -258,6 +258,7 @@ const html = `<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${escapeHtml((config.baseUrl || '').replace(/\/$/, ''))}/img/banner.jpg">
 <meta name="theme-color" content="#0a1410">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="alternate" type="application/rss+xml" title="${escapeHtml(config.siteName || 'log')}" href="feed.xml">
 <link rel="stylesheet" href="${cssFilename}">
 </head>
