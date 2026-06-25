@@ -27,6 +27,8 @@ const DATA_DIR = path.join(ROOT, 'data');
 const LOG_DIR = path.join(DATA_DIR, 'log');
 const SRC_DIR = path.join(ROOT, 'src');
 const DIST_DIR = path.join(ROOT, 'dist');
+const SRC_IMG_DIR = path.join(SRC_DIR, 'img');
+const DIST_IMG_DIR = path.join(DIST_DIR, 'img');
 
 // ---------- helpers ----------
 
@@ -49,6 +51,18 @@ function escapeHtml(str) {
 
 function escapeXml(str) {
   return escapeHtml(str);
+}
+
+function stripMarkdown(md) {
+  return md
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/`(.*?)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/^- /gm, '')
+    .replace(/\n/g, ' ')
+    .replace(/  +/g, ' ')
+    .trim();
 }
 
 // Minimal markdown: paragraphs, **bold**, *italic*, `code`, [text](url), "- " lists.
@@ -196,12 +210,15 @@ const manifestSection = displayApps.length
 
 function logItem(entry) {
   const appNote = entry.appId ? `<span class="log-tag">${escapeHtml(entry.appId)}</span>` : '';
+  const shareUrl = `${(config.baseUrl || '').replace(/\/$/, '')}/#log-${entry.date}`;
+  const sharePreview = escapeHtml(stripMarkdown(entry.plain));
   return `
-  <div class="log-entry">
+  <div class="log-entry" id="log-${entry.date}">
     <div class="log-date">${fmtDate(entry.date)}</div>
     <div class="log-body">
       <h3 class="log-title">${escapeHtml(entry.title)}${appNote}</h3>
       ${entry.html}
+      <button class="share-btn" data-url="${shareUrl}" data-title="${escapeHtml(entry.title)}" data-preview="${sharePreview}">share</button>
     </div>
   </div>`;
 }
@@ -235,6 +252,11 @@ const html = `<!DOCTYPE html>
 <meta property="og:title" content="${escapeHtml(config.author || '')} / ${escapeHtml(config.siteName || 'log')}">
 <meta property="og:description" content="${escapeHtml(config.description || config.tagline || '')}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="${escapeHtml((config.baseUrl || '').replace(/\/$/, ''))}/img/banner.jpg">
+<meta property="og:image:width" content="1500">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${escapeHtml((config.baseUrl || '').replace(/\/$/, ''))}/img/banner.jpg">
 <meta name="theme-color" content="#0a1410">
 <link rel="alternate" type="application/rss+xml" title="${escapeHtml(config.siteName || 'log')}" href="feed.xml">
 <link rel="stylesheet" href="${cssFilename}">
@@ -293,6 +315,20 @@ const html = `<!DOCTYPE html>
   </div>
 </footer>
 
+<script>
+document.querySelectorAll('.share-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const parts = [btn.dataset.title];
+    if (btn.dataset.preview) parts.push(btn.dataset.preview);
+    parts.push(btn.dataset.url);
+    navigator.clipboard.writeText(parts.join('\\n\\n')).then(() => {
+      btn.textContent = 'copied!';
+      setTimeout(() => { btn.textContent = 'share'; }, 1500);
+    });
+  });
+});
+</script>
+
 </body>
 </html>
 `;
@@ -325,6 +361,14 @@ const rss = `<?xml version="1.0" encoding="UTF-8"?>
 // ---------- write ----------
 
 fs.mkdirSync(DIST_DIR, { recursive: true });
+fs.mkdirSync(DIST_IMG_DIR, { recursive: true });
+
+// Copy static images from src/img/ to dist/img/
+if (fs.existsSync(SRC_IMG_DIR)) {
+  fs.readdirSync(SRC_IMG_DIR).forEach((f) => {
+    fs.copyFileSync(path.join(SRC_IMG_DIR, f), path.join(DIST_IMG_DIR, f));
+  });
+}
 
 // Remove stale fingerprinted CSS files before writing the new one
 fs.readdirSync(DIST_DIR)
