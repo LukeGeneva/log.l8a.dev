@@ -296,6 +296,7 @@ button:focus-visible {
 .log-entry {
   display: grid;
   grid-template-columns: 110px 1fr;
+  align-items: baseline;
   gap: 24px;
   padding: 20px 0;
   border-bottom: 1px solid var(--line);

@@ -1,5 +1,13 @@
 [
   {
+    "name": "Captain's Log",
+    "tagline": "A public build log generator — projects shipped, days logged, no fluff.",
+    "status": "shipped",
+    "shipDate": "2026-06-17",
+    "link": "https://github.com/LukeGeneva/captains-log",
+    "platforms": ["web"]
+  },
+  {
     "name": "Crack'd",
     "tagline": "A daily code-cracking web game with share capabilities.",
     "status": "building",
@@ -8,11 +16,11 @@
     "platforms": ["web"]
   },
   {
-    "name": "Captain's Log",
-    "tagline": "A public build log generator — projects shipped, days logged, no fluff.",
+    "name": "Remind",
+    "tagline": "Create Apple Reminders from the command line.",
     "status": "shipped",
-    "shipDate": "2026-06-17",
-    "link": "https://github.com/LukeGeneva/captains-log",
-    "platforms": ["web"]
+    "shipDate": "2026-06-24",
+    "link": "https://github.com/LukeGeneva/remind",
+    "platforms": ["cli"]
   }
 ]
