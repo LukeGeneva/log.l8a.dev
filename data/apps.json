@@ -22,5 +22,13 @@
     "shipDate": "2026-06-24",
     "link": "https://github.com/LukeGeneva/remind",
     "platforms": ["cli"]
+  },
+  {
+    "name": "Code Cap",
+    "tagline": "Renders code typing animations as MP4 videos with syntax highlighting.",
+    "status": "building",
+    "shipDate": null,
+    "link": "https://github.com/LukeGeneva/code-cap",
+    "platforms": ["cli"]
   }
 ]
