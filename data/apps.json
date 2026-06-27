@@ -30,5 +30,13 @@
     "shipDate": null,
     "link": "https://github.com/LukeGeneva/code-cap",
     "platforms": ["cli"]
+  },
+  {
+    "name": "GitHub Profile",
+    "tagline": "GitHub profile README — a personal landing page baked into GitHub itself.",
+    "status": "shipped",
+    "shipDate": null,
+    "link": "https://github.com/LukeGeneva/LukeGeneva",
+    "platforms": ["web"]
   }
 ]
