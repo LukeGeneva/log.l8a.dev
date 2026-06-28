@@ -38,5 +38,21 @@
     "shipDate": null,
     "link": "https://github.com/LukeGeneva/LukeGeneva",
     "platforms": ["web"]
+  },
+  {
+    "name": "l8a.dev",
+    "tagline": "Personal site and blog — built with Bun and TypeScript, no framework.",
+    "status": "shipped",
+    "shipDate": null,
+    "link": "https://github.com/LukeGeneva/l8a.dev",
+    "platforms": ["web"]
+  },
+  {
+    "name": "RSS Feed Finder",
+    "tagline": "Browser extension that finds and copies the RSS feed URL from any webpage.",
+    "status": "building",
+    "shipDate": null,
+    "link": "https://github.com/LukeGeneva/rss-feed-finder",
+    "platforms": ["web"]
   }
 ]
