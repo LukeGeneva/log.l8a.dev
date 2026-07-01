@@ -137,7 +137,7 @@ function loadLogEntries() {
     return {
       date: meta.date || '',
       title: meta.title || f,
-      appId: meta.appId || null,
+      app: meta.app || null,
       html: renderMarkdown(body),
       plain: body.trim().split(/\r?\n\r?\n/)[0] || ''
     };
@@ -209,7 +209,7 @@ const manifestSection = displayApps.length
     </div>`;
 
 function logItem(entry) {
-  const appNote = entry.appId ? `<span class="log-tag">${escapeHtml(entry.appId)}</span>` : '';
+  const appNote = entry.app ? `<span class="log-tag">${escapeHtml(entry.app)}</span>` : '';
   const shareUrl = `${(config.baseUrl || '').replace(/\/$/, '')}/#log-${entry.date}`;
   const sharePreview = escapeHtml(stripMarkdown(entry.plain));
   return `
@@ -282,7 +282,6 @@ const html = `<!DOCTYPE html>
     <div class="panel">
       <p>${escapeHtml(config.tagline || '')}</p>
       <p>Projects below are real and dated. The log underneath is the actual day-to-day: what got built, what didn't, what I'd do differently.</p>
-      <p class="signoff">— ${escapeHtml(config.author || '')}</p>
     </div>
   </div>
 </header>
