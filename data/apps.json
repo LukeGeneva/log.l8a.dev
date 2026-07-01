@@ -10,8 +10,8 @@
   {
     "name": "Crack'd",
     "tagline": "A daily code-cracking web game with share capabilities.",
-    "status": "building",
-    "shipDate": null,
+    "status": "shipped",
+    "shipDate": "2026-07-01", 
     "link": "https://github.com/LukeGeneva/crackd",
     "platforms": ["web"]
   },
@@ -54,5 +54,13 @@
     "shipDate": null,
     "link": "https://github.com/LukeGeneva/rss-feed-finder",
     "platforms": ["web"]
+  },
+  {
+    "name": "Biller Lite",
+    "tagline": "Fast, local-first invoice creation for freelancers — no accounts, no cloud, no subscription.",
+    "status": "shipped",
+    "shipDate": "2026-06-30",
+    "link": "https://github.com/LukeGeneva/biller-lite",
+    "platforms": ["macos", "windows"]
   }
 ]
