@@ -166,9 +166,9 @@ const config = readJSON(path.join(ROOT, 'config.json'), {});
 const rawApps = readJSON(path.join(DATA_DIR, 'apps.json'), []);
 const logEntries = loadLogEntries();
 
-const numberedApps = rawApps.map((a, i) => Object.assign({}, a, { manifestNo: i + 1 }));
-const displayApps = numberedApps.slice().sort((a, b) => (a.shipDate < b.shipDate ? 1 : a.shipDate > b.shipDate ? -1 : 0));
-const shippedCount = numberedApps.filter((a) => a.status === 'shipped').length;
+const sortedApps = rawApps.slice().sort((a, b) => (a.shipDate < b.shipDate ? 1 : a.shipDate > b.shipDate ? -1 : 0));
+const displayApps = sortedApps.map((a, i) => Object.assign({}, a, { manifestNo: i + 1 }));
+const shippedCount = displayApps.filter((a) => a.status === 'shipped').length;
 
 // ---------- render pieces ----------
 
