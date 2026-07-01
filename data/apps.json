@@ -62,5 +62,13 @@
     "shipDate": "2026-06-30",
     "link": "https://github.com/LukeGeneva/biller-lite",
     "platforms": ["macos", "windows"]
+  },
+  {
+    "name": "TapeDeck",
+    "tagline": "A minimal macOS menu-bar-sized app for recording system audio to MP3.",
+    "status": "building",
+    "shipDate": null,
+    "link": "https://github.com/LukeGeneva/tape-deck",
+    "platforms": ["macos"]
   }
 ]
